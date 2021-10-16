@@ -1,11 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/jsx-key */
-import { Page, Card, DataTable, Modal } from '@shopify/polaris';
+import { Page, Card } from '@shopify/polaris';
 import { fetchCustomers } from './api/ems/index';
 import Link from 'next/link';
-import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { getIdProps } from './[id]';
 
 export default function feature({ customers }) {
   const router = useRouter();
@@ -87,7 +85,7 @@ export default function feature({ customers }) {
                                 className='text-indigo-600 hover:text-indigo-900'>
                                 <a
                                   onClick={() => {
-                                    fetch('http://localhost:3000/api/ems', {
+                                    fetch('http://localhost:3000/api/customer', {
                                       method: 'PATCH',
                                       body: customer._id,
                                     });
@@ -129,7 +127,6 @@ export default function feature({ customers }) {
 
 export async function getServerSideProps() {
   let customers = await fetchCustomers();
-  // console.log(customers);
   return {
     props: {
       customers: JSON.parse(JSON.stringify(customers)),

@@ -11,9 +11,6 @@ export default async function handler(req, res) {
     case 'POST': {
       return saveCustomers(req, res);
     }
-    case 'PATCH': {
-      return findCustomerById(req, res);
-    }
     case 'DELETE': {
       return deleteCustomerById(req, res);
     }
@@ -48,16 +45,6 @@ export async function mapArray() {
 
   let mapArray = await data.props.customers.map((customer) => customer.node);
   return mapArray;
-}
-
-export async function findCustomerById(req, res) {
-  let { db } = await connectToDatabase();
-  let dataById = await db
-    .collection('ems')
-    .findOne({ _id: new ObjectId(req.body) })
-    .then(console.log)
-    .catch(console.error);
-  return res.json(dataById);
 }
 
 export async function deleteCustomerById(req, res) {
